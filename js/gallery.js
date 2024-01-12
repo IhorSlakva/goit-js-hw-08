@@ -94,8 +94,33 @@ function render() {
 render();
 
 boxGallery.addEventListener('click', e => {
-    e.preventDefault();
+  e.preventDefault();
     if (e.target === e.currentTarget) {
-        return;
-    }
+      return;
+  }
+  
+const instance = basicLightbox.create(`
+    <div class="modal">
+        <img src="${e.target.dataset.source}" alt="${e.target.alt}" width="1112" height="640"/>
+    </div>
+    `, {
+	
+  onShow: (instance) => {
+    document.addEventListener('keydown', closeModal);
+  },
+	
+  onClose: (instance) => {
+    document.removeEventListener('keydown', closeModal);
+  }
 })
+  
+  function closeModal(e) {
+    if (e.code === 'Escape') {
+      instance.close();
+    }
+  }
+
+  instance.show();
+})
+
+
