@@ -95,7 +95,7 @@ render();
 
 boxGallery.addEventListener('click', e => {
   e.preventDefault();
-    if (e.target === e.currentTarget) {
+    if (!e.target.classList.contains('gallery-image')) {
       return;
   }
   
@@ -113,13 +113,13 @@ const instance = basicLightbox.create(`
     document.removeEventListener('keydown', closeModal);
   }
 })
-  
+
   function closeModal(e) {
     if (e.code === 'Escape') {
       instance.close();
     }
   }
-
+  
   instance.show();
 })
 
